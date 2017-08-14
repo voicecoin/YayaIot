@@ -1,11 +1,11 @@
 <template>
-    <Row style="height:100%">
+    <Row>
         <div class="message">
             <ul v-if="session">
                 <li v-for="item in session.messages">
-                    <p class="time">
+                    <!--<p class="time">
                         <span>Date</span>
-                    </p>
+                    </p>-->
                     <div class="main" :class="{ self: item.self }">
                         
                         <div class="text">{{ item.content }}</div>
@@ -13,7 +13,7 @@
                 </li>
             </ul>
         </div>
-        <chatText></chatText>
+        <chatText :messages="session.messages"></chatText>
     </Row>
 </template>
 
@@ -50,7 +50,7 @@ export default {
 <style lang="less" scoped>
 .message {
     padding: 10px 15px;
-    height: 80%;
+    height: 400px;
     overflow-y: scroll;
     li {
         margin-bottom: 15px;

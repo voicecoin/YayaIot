@@ -1,15 +1,15 @@
 <template>
     <div class="layout">
         <Row class="layout-header" type="flex" align="middle">
-            <Col span="3">
-                <div class="layout-logo-left"><img src="../images/barnner2.jpg" style="width:100%;margin-left:10%;"/></div>
+            <Col span="4">
+                <div class="layout-logo-left"><img src="../images/iot-logo.png" style="width:100%;margin-left:10%;margin-top:5px;"/></div>
             </Col>
             <Col span="16" class="layout-ceiling-main">
                 <Icon type="home" size="16"></Icon><a href="/">首页</a>
                 <a href="http://forum.yaya.ai" target="_blank">聊天机器人论坛</a>
                 <a href="/">开发文档</a>
             </Col>
-            <Col span="5" style="text-align:right;">
+            <Col span="4" style="text-align:right;">
                 <userStatus></userStatus>
             </Col>
         </Row>
@@ -34,7 +34,7 @@
                         <span class="layout-text">词库管理</span>
                     </Menu-item>
                     <Menu-item name="/hotword/training">
-                        <Icon type="ios-book" size="24"></Icon>
+                        <Icon type="ios-pulse" size="24"></Icon>
                         <span class="layout-text">热词训练</span>
                     </Menu-item>
                     <!--<Menu-item name="/chat/window">
@@ -48,6 +48,14 @@
                 </Menu>
 
                 <activeAgent></activeAgent>
+
+                <Button type="primary" @click="showConversation=true" icon="chatboxes" style="margin-top:10px;">对话测试</Button>
+                <Modal
+                    v-model="showConversation"
+                    :title="conversationTitle"
+                    @on-cancel="返回">
+                        <converation></converation>
+                </Modal>
             </Col>
 
             <Col :xs="18" :sm="19" :md="20" :lg="21" style="height:100%;">
@@ -72,17 +80,20 @@
 </template>
 
 <script>
-    import chats from './chat/window.vue';
     import active from './agent/active.vue';
     import userStatus from './account/user-status.vue';
-
+    import converation from './conversation/window.vue'
+    
     export default {
         data () {
             return {
-				
+				showConversation: false
             }
         },
         computed: {
+            conversationTitle() {
+				return "正在和" + this.$store.state.agent.name + "进行对话测试";
+			}
         },
         methods: {
             redirect(path){
@@ -90,9 +101,9 @@
             }
         },
 		components: {
-			chats,
             activeAgent: active,
-            userStatus
+            userStatus,
+            converation
 		}
     }
 </script>
@@ -119,6 +130,7 @@
     }
     .layout-content-main{
         padding: 10px;
+        height:100%;
     }
     .layout-copy{
         text-align: center;

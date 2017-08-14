@@ -38,8 +38,13 @@
                                 </th>
                                 <th>
                                     <div class="ivu-table-cell">
-                                        <span>提示语</span>&nbsp;
+                                        <span>提示语</span>
                                         <Tooltip content="操作说明，未完善" placement="top"><Icon type="help-circled"></Icon></Tooltip>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="ivu-table-cell">
+                                        <span>操作</span>
                                     </div>
                                 </th>
                             </tr>
@@ -72,12 +77,17 @@
                                 </td>
                                 <td>
                                     <div class="ivu-table-cell">
-                                        <span></span>
+                                        <span><Checkbox>&nbsp;</Checkbox></span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="ivu-table-cell">
                                         <span>{{parameter.prompts}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ivu-table-cell">
+                                        <Button icon="trash-b" type="text">删除</Button>
                                     </div>
                                 </td>
                             </tr>

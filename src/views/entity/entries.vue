@@ -33,6 +33,7 @@
                 <Page :total="total" :current="page" :page-size="size" @on-change="changePage" show-total size="small"></Page>
             </div>
         </Col>
+        <Button type="ghost" @click="goto" style="margin-top:10px;">返回</Button>
     </Row>
 </template>
 <script>
@@ -152,6 +153,9 @@
                         entry.synonyms.splice(index, 1);
                         this.$Message.info("删除成功");
                     });
+            },
+            goto(){
+                this.$router.push("/entity/entity-type-detail?entityId=" + this.$route.query.entityId );
             }
         },
         mounted() {

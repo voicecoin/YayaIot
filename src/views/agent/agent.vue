@@ -64,7 +64,7 @@
 				}
 			}
 		},
-		created() {
+		mounted() {
 			let agentId = this.$route.query.agentId;
 			this.$ajax.get(`/v1/Agents/` + agentId)
 				.then(response => {

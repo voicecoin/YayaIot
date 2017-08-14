@@ -14,6 +14,7 @@
 		<div>
 			<Page :total="total" :current="page" :page-size="size" @on-change="changePage" show-total size="small"></Page>
 		</div>
+        
 
         <!--<Card style="margin-top:20px;">
             <Form :model="entityType">

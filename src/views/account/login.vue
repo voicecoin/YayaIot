@@ -58,10 +58,7 @@
                 this.$ajax.post(`/token`, qs.stringify(this.formInline), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 					.then(response => {
                         this.$store.commit('authenticated', response.data.access_token)
-					})
-					.catch(e => {
-					  this.$Message.error('用户身份验证失败!');
-					})
+					});
             }
         }
     }

@@ -3,8 +3,8 @@
         <h3 v-if="entityType.id">修改 {{entityType.name}}</h3>
         <h3 v-else>创建</h3>
         <br/>
-        <Form :model="entityType" :label-width="150">
-            <Form-item label="词库名称">
+        <Form ref="entityType" :model="entityType" :rules="ruleValidate" :label-width="150">
+            <Form-item label="词库名称" prop="name">
                 <Input v-model="entityType.name" placeholder="请输入词库分类名称"></Input>
             </Form-item>
             <Form-item label="描述">
@@ -57,6 +57,11 @@
                     id: null,
                     isEnum: false,
                     name: null
+                },
+                ruleValidate: {
+                    name: [
+                        { required: true, message: '名称不能为空', trigger: 'blur' }
+                    ]
                 }
             }
         },
@@ -78,24 +83,43 @@
                 this.$router.push('/entity/entity-types');
             },
             handleRemove () {
-                
+                let entityId = this.entityType.id;
+                this.$ajax.delete('/v1/Entities/' + entityId)
+                    .then(response => {
+                        this.$Message.info("删除成功");
+                        this.$router.push("/entity/entity-types");
+                    });
             },
             addEntityEntry(entityId){
                 this.$route.query.entityId = entityId;
                 this.$router.push('/entity/entries?entityId=' + entityId);
             },
             updateEntity(){
-                let entityId = this.$route.query.entityId;
+                //let entityId = this.$route.query.entityId;
+                let entityId = this.entityType.id;
                 this.$ajax.put('/v1/Entities/' + entityId, this.entityType)
                     .then(response => {
                         this.$Message.info("更新成功")
                     });
             },
             createEntity(){
-                this.$ajax.post('/v1/Entities/' + this.agent.id, this.entityType)
-                    .then(response => {
-                        this.entityType = response.data;
-                    });
+                this.$refs['entityType'].validate((valid) => {
+                    if (valid) {
+                        this.$ajax.post('/v1/Entities/' + this.agent.id, this.entityType)
+                            .then(response => {
+                                this.entityType = response.data;
+                                this.$Message.info({
+                                        content: "创建成功, 点击词条管理添加新词条",
+                                        top: 50,
+                                        duration: 5
+                                    });
+                            });
+                    } else {
+                        this.$Message.error('表单验证失败!');
+                    }
+                });
+
+
             }
         },
         mounted() {

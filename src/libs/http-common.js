@@ -22,9 +22,10 @@ HTTP.interceptors.response.use(null, function(error) {
   let status = response.status;
 
   if (status === 400) {
-    Object.keys(response.data).forEach(function(key) {
+    iView.Message.error(response.data);
+    /*Object.keys(response.data).forEach(function(key) {
       iView.Message.error(response.data[key][0]);
-    });
+    });*/
   } else if (status === 401) {
     iView.Message.error("非法用户，请先登录！");
   } else if (status === 404) {
