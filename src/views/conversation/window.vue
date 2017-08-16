@@ -13,7 +13,7 @@
                 </li>
             </ul>
         </div>
-        <chatText :messages="session.messages"></chatText>
+        <chatText :messages="session.messages" ref="textMessage"></chatText>
     </Row>
 </template>
 
@@ -33,6 +33,11 @@ export default {
 			}
 		}
 	},
+    methods: {
+        sendMessage(){
+            this.$refs.textMessage.sendMessage();
+        }
+    },
     directives: {
         // 发送消息后滚动到底部
         /*'scroll-bottom' () {
@@ -40,6 +45,9 @@ export default {
                 this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
             });
         }*/
+    },
+    mounted(){
+
     },
 	components: {
 		chatText: text

@@ -68,7 +68,7 @@
         </Row>
 
         <Row type="flex" justify="center">
-            <i-button v-if="current<2" type="ghost" @click="previous" style="margin-right:10px;">前一步</i-button>
+            <i-button v-if="current>0 && current<2" type="ghost" @click="previous" style="margin-right:10px;">前一步</i-button>
 			<i-button v-if="current<1" type="primary" @click="next">下一步</i-button>
 			<i-button v-if="agent != null && agent.id == null && current == 1" type="primary" @click="create">创建</i-button>
             <i-button v-if="current == 2" type="ghost" @click="goto('/intent/intents')" style="margin-right:10px;">添加意图</i-button>
@@ -106,6 +106,8 @@
                     .then(response => {
                         this.agent = response.data;
                         this.current = 2;
+                        this.$store.state.agents.push(this.agent);
+                        this.$store.commit('setAgentId', this.agent.id)
                         this.$Message.info("创建成功");
                     });  
             },

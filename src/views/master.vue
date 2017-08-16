@@ -2,7 +2,7 @@
     <div class="layout">
         <Row class="layout-header" type="flex" align="middle">
             <Col span="4">
-                <div class="layout-logo-left"><img src="../images/iot-logo.png" style="width:100%;margin-left:10%;margin-top:5px;"/></div>
+                <div class="layout-logo-left"><img src="../images/iot-logo.png" style="height:60px;margin-left:10%;margin-top:5px;"/></div>
             </Col>
             <Col span="16" class="layout-ceiling-main">
                 <Icon type="home" size="16"></Icon><a href="/">首页</a>
@@ -47,14 +47,20 @@
                     </Menu-item>
                 </Menu>
 
-                <activeAgent></activeAgent>
+                <activeAgent v-if="agentId"></activeAgent>
 
-                <Button type="primary" @click="showConversation=true" icon="chatboxes" style="margin-top:10px;">对话测试</Button>
-                <Modal
-                    v-model="showConversation"
-                    :title="conversationTitle"
-                    @on-cancel="返回">
-                        <converation></converation>
+                <Button v-if="agentId" type="primary" @click="startConversation" icon="chatbox" style="margin-top:10px;">对话测试</Button>
+                <Modal v-model="showConversation" width="360">
+                    <p slot="header" style="color:#f60;text-align:center">
+                        <Icon type="chatbox"></Icon>
+                        <span>{{conversationTitle}}</span>
+                    </p>
+                    <div>
+                        <converation ref="conversation"></converation>
+                    </div>
+                    <div slot="footer">
+                        <Button type="primary" long :loading="loading" @click="sendText">发送</Button>
+                    </div>
                 </Modal>
             </Col>
 
@@ -87,17 +93,38 @@
     export default {
         data () {
             return {
-				showConversation: false
+				showConversation: false,
+                loading: false
             }
         },
         computed: {
             conversationTitle() {
 				return "正在和" + this.$store.state.agent.name + "进行对话测试";
-			}
+			},
+            agentId(){
+                return this.$store.state.agent.id;
+            }
         },
         methods: {
             redirect(path){
                 this.$router.push({path: path});
+            },
+            startConversation(){
+                var agentId = this.$store.state.agent.id;
+                this.$ajax.get('/v1/Conversation/' + agentId)
+                    .then(response => {
+                        this.showConversation = true;
+                        this.$store.state.conversation.id = response.data;
+                    });
+            },
+            sendText(){
+                this.loading = true;
+                this.$refs.conversation.sendMessage();
+                setTimeout(() => {
+                    this.loading = false;
+                }, 500);
+                
+                
             }
         },
 		components: {

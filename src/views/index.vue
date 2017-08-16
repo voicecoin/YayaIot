@@ -1,11 +1,11 @@
 <template>
     <div class="index">
-        <Row type="flex" justify="center" align="top">
+        <Row type="flex" justify="center" align="middle">
 			<Col span="24">
 				<Row type="flex" justify="center">
 					<Col span="2"></Col>
 					<Col span="20">
-						<div style="height:200px;"></div>
+						<div></div>
 						<h1>
 							<img src="../images/logo.png">
 						</h1>
@@ -20,7 +20,6 @@
 				<Row type="flex" justify="center" align="middle">
 					<Col>
 						<login></login>
-						
 						<Button type="primary" @click="goto('/register')" style="margin-top:30px;">免费注册</Button><p style="margin-top:10px;">立即使用，开启人机交互新模式</p>
 					</Col>
 				</Row>

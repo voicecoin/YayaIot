@@ -9,36 +9,43 @@
         props:['messages'],
         data () {
             return {
-                content: ''
+                content: '天气'
             };
         },
         methods: {
             onKeyup (e) {
-                if (e.ctrlKey && e.keyCode === 13 && this.content.length) {
-                    this.messages.push({
-                        content: this.content,
-                        date: new Date(),
-                        self: true
-                    });
-
-                    let token = this.$store.state.agent.clientAccessToken;
-                    let session = this.$store.state.user.id;
-                    this.$ajax.get('/v1/Conversation?clientAccessToken=' + token + '&sessionId=' + session + '&text=' + this.content)
-                        .then(response => {
-
-                            this.messages.push({
-                                content: response.data,
-                                date: new Date(),
-                                self: false
-                            });
-                            this.content = '';
-
-                        });
-                    
-
+                if (e.ctrlKey && e.keyCode === 13) {
+                    sendMessage(this);
                 }
+            },
+            sendMessage(){
+                sendMessage(this);
             }
         }
+    };
+
+    var sendMessage = function(vm){
+        if(!vm.content.length) return;
+
+        vm.messages.push({
+            content: vm.content,
+            date: new Date(),
+            self: true
+        });
+
+        let token = vm.$store.state.agent.clientAccessToken;
+        let conversationId = vm.$store.state.conversation.id;
+        vm.$ajax.get('/v1/Conversation?clientAccessToken=' + token + '&conversationId=' + conversationId + '&text=' + vm.content)
+            .then(response => {
+
+                vm.messages.push({
+                    content: response.data,
+                    date: new Date(),
+                    self: false
+                });
+                vm.content = '';
+
+            });
     };
 </script>
 

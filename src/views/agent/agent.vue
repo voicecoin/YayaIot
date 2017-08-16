@@ -1,5 +1,5 @@
 <template>
-    <Tabs>
+    <Tabs :animated="false">
         <Tab-pane label="基本信息" name="general">
 			<Row>
 				<Col span="4" style="text-align:center;">

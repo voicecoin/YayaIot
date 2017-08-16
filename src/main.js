@@ -46,7 +46,8 @@ const store = new Vuex.Store({
     agent: {id: null, name: null, avatar: null},
     agents: [],
     // user status
-    user: {id: null, name: null, avatar: null}
+    user: {id: null, name: null, avatar: null},
+    conversation: {id: null}
   },
   getters: {
     user: state => {

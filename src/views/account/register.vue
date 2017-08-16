@@ -30,28 +30,32 @@
 </style>
 <template>
     <div class="index">
-        <!--<Row type="flex" justify="center" align="middle">
+        <Row type="flex" justify="center" align="middle">
             <Col span="24">
-                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
-                    <Form-item label="密码" prop="passwd">
-                        <Input type="password" v-model="formCustom.passwd"></Input>
-                    </Form-item>
-                    <Form-item label="确认密码" prop="passwdCheck">
-                        <Input type="password" v-model="formCustom.passwdCheck"></Input>
-                    </Form-item>
-                    <Form-item label="年龄" prop="age">
-                        <Input type="text" v-model="formCustom.age" number></Input>
-                    </Form-item>
-                    <Form-item>
-                        <Button type="primary" @click="handleSubmit('formCustom')">提交</Button>
-                        <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
-                    </Form-item>
-                </Form>
+                <!--<Row type="flex" justify="center" align="middle">
+                    <Col span="24">
+                        <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+                            <Form-item label="密码" prop="passwd">
+                                <Input type="password" v-model="formCustom.passwd"></Input>
+                            </Form-item>
+                            <Form-item label="确认密码" prop="passwdCheck">
+                                <Input type="password" v-model="formCustom.passwdCheck"></Input>
+                            </Form-item>
+                            <Form-item label="年龄" prop="age">
+                                <Input type="text" v-model="formCustom.age" number></Input>
+                            </Form-item>
+                            <Form-item>
+                                <Button type="primary" @click="handleSubmit('formCustom')">提交</Button>
+                                <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
+                            </Form-item>
+                        </Form>
+                    </Col>
+                </Row>-->
+                <img src="../../images/logo.png" width="200px;">
+                <h3 style="margin-bottom:10px;">很抱歉！网站正在进行内部功能测试，暂时不提供新用户注册功能</h3>
+                <a href="/" type="text">返回主页</a>
             </Col>
-        </Row>-->
-        <div style="margin-top:30%;margin-bottom:10px;"><img src="../../images/logo.png" width="200px;"></div>
-        <h3 style="margin-bottom:10px;">很抱歉！网站正在进行内部功能测试，暂时不提供新用户注册功能</h3>
-        <a href="/" type="text">返回主页</a>
+        </Row>
     </div>
 </template>
 <script>

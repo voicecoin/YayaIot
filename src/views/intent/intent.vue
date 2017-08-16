@@ -42,7 +42,7 @@
 			</Row>
 
 			<Row type="flex" justify="center">
-				<i-button type="ghost" @click="previous" style="margin-right:10px;">上一步</i-button>
+				<i-button v-if="current>0" type="ghost" @click="previous" style="margin-right:10px;">上一步</i-button>
 				<i-button v-if="current<3" type="primary" @click="next">下一步</i-button>
 				<i-button v-else type="primary" @click="save">保存</i-button>
 			</Row>
