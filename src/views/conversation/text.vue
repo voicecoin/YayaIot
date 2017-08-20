@@ -35,7 +35,11 @@
 
         let token = vm.$store.state.agent.clientAccessToken;
         let conversationId = vm.$store.state.conversation.id;
-        vm.$ajax.get('/v1/Conversation?clientAccessToken=' + token + '&conversationId=' + conversationId + '&text=' + vm.content)
+
+        let text = vm.content;
+        vm.content = '';
+
+        vm.$ajax.get('/v1/Conversation?clientAccessToken=' + token + '&conversationId=' + conversationId + '&text=' + text)
             .then(response => {
 
                 vm.messages.push({
@@ -43,8 +47,7 @@
                     date: new Date(),
                     self: false
                 });
-                vm.content = '';
-
+                
             });
     };
 </script>

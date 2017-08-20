@@ -1,47 +1,83 @@
+<template>
+    <div class="message" v-scroll-bottom="messages">
+        <ul v-if="session">
+            <li v-for="item in messages">
+                <p class="time">
+                    <span>{{ item.date | time }}</span>
+                </p>
+                <div class="main" :class="{ self: item.self }">
+                    <img v-if="!item.self && agent.avatar" class="avatar" width="30" height="30" :src="agent.avatar" />
+                    <img v-if="!item.self && !agent.avatar" class="avatar" width="30" height="30" src="../../images/bot.png" />
+
+                    <img v-if="item.self && agent.avatar" class="avatar" width="30" height="30" :src="agent.avatar" />
+                    <img v-if="item.self && !agent.avatar" class="avatar" width="30" height="30" src="../../images/user.png" />
+
+                    <div class="text">{{ item.content }} </div>
+                    <Button v-if="!item.self" type="text" size="small">Payload</Button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</template>
+
 <script>
+
 export default {
+    props:['messages'],
 	data () {
 		return {
 			session: {
 				messages:[
-					{self: true,
-					content: 'Hi'},
 					{self: false,
-					content: "What's up?"}
+                    date: new Date(),
+					content: "请问有什么需要帮助的？"}
 				]
-			}
+			},
 		}
 	},
+    computed: {
+        agent () {
+            return this.$store.state.agent;
+        },
+        user () {
+            return this.$store.state.user;
+        }
+    },
+    methods: {
+        sendMessage(){
+            this.$refs.textMessage.sendMessage();
+        }
+    },
+    filters: {
+        // 将日期过滤为 hour:minutes
+        time (date) {
+            if (typeof date === 'string') {
+                date = new Date(date);
+            }
+            return date.getHours() + ':' + date.getMinutes();
+        }
+    },
     directives: {
         // 发送消息后滚动到底部
-        /*'scroll-bottom' () {
-            this.vm.$nextTick(() => {
+        'scroll-bottom' () {
+            /*this.vm.$nextTick(() => {
                 this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
-            });
-        }*/
-    }
+            });*/
+        }
+    },
+    mounted(){
+
+    },
+	components: {
+
+	}
 };
 </script>
-
-<template>
-<div class="message" v-scroll-bottom="session.messages">
-    <ul v-if="session">
-        <li v-for="item in session.messages">
-            <!--<p class="time">
-                <span>{{item.date}}</span>
-            </p>-->
-            <div class="main" :class="{ self: item.self }">
-                
-                <div class="text">{{ item.content }}</div>
-            </div>
-        </li>
-    </ul>
-</div>
-</template>
 
 <style lang="less" scoped>
 .message {
     padding: 10px 15px;
+    height: 400px;
     overflow-y: scroll;
     li {
         margin-bottom: 15px;

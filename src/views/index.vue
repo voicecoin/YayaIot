@@ -20,7 +20,6 @@
 				<Row type="flex" justify="center" align="middle">
 					<Col>
 						<login></login>
-						<Button type="primary" @click="goto('/register')" style="margin-top:30px;">免费注册</Button><p style="margin-top:10px;">立即使用，开启人机交互新模式</p>
 					</Col>
 				</Row>
 				<Row style="height:100px;" type="flex" justify="center" align="bottom">

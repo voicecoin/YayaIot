@@ -1,20 +1,35 @@
 <template>
     <Row>
-        <Col span="24">
-            <div class="ivu-input" style="border-radius:0px;">
-                <Tooltip placement="right">
-                    <Icon type="quote"></Icon>
-                    <div slot="content">
-                        <h3>点击进行模式切换</h3>
-                        <p>普通模式下文本会由系统自动识别词库</p>
-                        <p>模板模式下系统不会进行识别 </p>
-                    </div>
-                </Tooltip>
-                <div :title="userSay.text" contenteditable @keyup.enter="submit" @focus="showData" @blur="hideData" class="expression">
-                    <span v-for="seg in userSay.data" v-html="seg.text" :style="{backgroundColor: seg.color}"></span> 
+        <div class="ivu-input" style="border-radius:0px;border-bottom:0px;">
+            <Tooltip placement="right">
+                <Icon type="quote"></Icon>
+                <div slot="content">
+                    <p>普通模式下文本会由系统自动识别词库</p>
+                    <p>模板模式下系统不会进行识别 </p>
+                </div>
+            </Tooltip>
+
+            <div contenteditable @mouseup="grab" @keyup.enter="submit" class="expression">
+                <div v-for="seg in userSay.data" style="float:left;">
+                    <Button v-if="seg.meta" type="text" @click="showDetail(seg)" :style="{backgroundColor: seg.color, marginRight:'2px'}" size="small">{{seg.text}}</Button>
+                    <span v-else class="ivu-btn ivu-btn-text ivu-btn-small">{{seg.text}}</span>
                 </div>
             </div>
-            <div v-if="visible" class="ivu-table-wrapper">
+        </div>
+        <Modal
+            v-model="dataDetailVisible"
+            title="更改词语分类"
+            @on-ok="changeDataType"
+            @on-cancel="hideDetail">
+            
+            <Radio-group v-model="currentSeg.meta">
+                <Radio v-for="entity in dataTypes" :label="'@' + entity.name"></Radio>
+            </Radio-group>
+            
+        </Modal>
+    </Row>
+
+            <!--<div v-if="visible" class="ivu-table-wrapper">
                 <div class="ivu-table ivu-table-stripe">
                     <div class="ivu-table-header">
                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -54,12 +69,18 @@
                                     </td>
                                     <td>
                                         <div class="ivu-table-cell">
-                                            <span>{{seg.meta}}</span>
+                                            <Dropdown trigger="click" @on-click="changeDataType">
+                                                <Button type="text" @click="dataTypeVisible = true">{{seg.meta}}</Button>
+                                                <Dropdown-menu slot="list">
+                                                    <Dropdown-item v-for="dataType in dataTypes">{{dataType.name}}</Dropdown-item>
+                                                    <Dropdown-item divided>创建新词库</Dropdown-item>
+                                                </Dropdown-menu>
+                                            </Dropdown>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="ivu-table-cell">
-                                            <span>{{seg.value}}</span>
+                                            <span>{{seg.text}}</span>
                                         </div>
                                     </td>
                                     <td>
@@ -72,9 +93,8 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </Col>
-    </Row>
+            </div>-->
+    
 </template>
 
 <script>
@@ -83,28 +103,52 @@
         props: ['userSay'],
         data () {
             return {
-			
+                dataDetailVisible: false,
+                currentSeg: {name: null},
+                dataTypes: []
             }
         },
         computed: {
             visible(){
                 let entities = this.userSay.data.filter(x => x.meta);
-                return this.userSay.visible && entities.length > 0;
+                return entities.length > 0;
             }
         },
         methods: {
-			showData(){
-				this.userSay.visible = true;
-			},
-            hideData(){
-                this.userSay.visible = false;
+            grab(){
+                let text = this.$util.getSelectionText();
+                if(text.length){
+                    
+                }
+            },
+            showDetail(seg){
+                this.currentSeg = seg;
+                this.dataDetailVisible = true;
+            },
+            changeDataType(){
+                // find entity type by name
+                let currentDataTypeName = this.currentSeg.meta;
+                let entity = this.dataTypes.find((entity)=>{
+                    return "@" + entity.name == currentDataTypeName;
+                });
+
+                this.currentSeg.color = entity.color;
+                this.currentSeg.meta = "@" + entity.name;
+            },
+            hideDetail(){
+                
             }
         },
 		components: {
 			
 		},
 		mounted() {
-
+            let agentId = this.$store.state.agent.id;
+            this.$ajax.get('/v1/Entities/' + agentId + '/Query')
+                    .then(response => {
+                        this.dataTypes = response.data.items;
+                    });
+            
 		}
     }
 </script>

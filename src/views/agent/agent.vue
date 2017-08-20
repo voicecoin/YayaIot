@@ -6,7 +6,7 @@
 					<img v-if="agent.avatar" :src="agent.avatar" />
 					<img v-else src="../../images/bot.png" />
 					<p style="margin:10px;">版本类型：免费版</p>
-					<Button type="ghost">版本升级</Button>
+					<Button type="ghost">升级{{agent.name}}</Button>
 				</Col>
 				<Col span="20">
 					<Form :model="agent" :label-width="80">
@@ -45,7 +45,20 @@
 					&nbsp;
 				</Col>
 				<Col span="20" style="text-align:center;">
-					<Button type="ghost">删除</Button>
+					<Button type="dashed" @click="showDeleteConfirm = true" style="float:left;margin-right:10px;">删除{{agent.name}}</Button>
+					<Modal v-model="showDeleteConfirm" width="360">
+						<p slot="header" style="color:#f60;text-align:center">
+							<Icon type="information-circled"></Icon>
+							<span>删除确认</span>
+						</p>
+						<div style="text-align:center">
+							<p>删除{{agent.name}}机器人后，所有与{{agent.name}}连接的设备将不可用。</p>
+							<p>是否继续删除？</p>
+						</div>
+						<div slot="footer">
+							<Button type="error" size="large" long :loading="modal_loading" @click="handleRemove">删除</Button>
+						</div>
+					</Modal>
 					<Button type="primary" @click="updateAgent(agent.id)">保存</Button>
 				</Col>
 			</Row>
@@ -61,7 +74,9 @@
 			return {
 				agent: {
 					name: "Blank"
-				}
+				},
+				showDeleteConfirm: false,
+				modal_loading: false
 			}
 		},
 		mounted() {
@@ -76,6 +91,16 @@
 				this.$ajax.put('/v1/Agents/' + agentId, this.agent)
 					.then(response => {
 						this.$Message.info("保存成功");
+					});
+			},
+			handleRemove(){
+				let agentId = this.$route.query.agentId;
+				this.modal_loading = true;
+				this.$ajax.put('/db/AgentEntity/' + agentId, {id: agentId, status: 11})
+					.then(response => {
+						this.modal_loading = false;
+						this.showDeleteConfirm = false;
+						this.$Message.info("删除成功");
 					});
 			}
 		}

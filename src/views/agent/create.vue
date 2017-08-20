@@ -63,7 +63,7 @@
                     <img v-if="agent.avatar" :src="agent.avatar"/>
                     <img v-else src="../../images/bot.png"/>
                 </div>
-                <p style="margin:10px;">您的物联网设备专属机器人创建成功，可以开始定制用户词库和设置意图。</p>
+                <p style="margin:10px;">您的专属机器人创建成功，可以开始定制用户词库和设置意图。</p>
             </Col>
         </Row>
 

@@ -41,6 +41,10 @@
                         <Icon type="ios-chatboxes" size="28"></Icon>
                         <span class="layout-text">会话管理</span>
                     </Menu-item>-->
+                    <Menu-item name="/integration/third-parts">
+                        <Icon type="usb" size="28"></Icon>
+                        <span class="layout-text">系统集成</span>
+                    </Menu-item>
                     <Menu-item name="/account/settings">
                         <Icon type="person" size="24"></Icon>
                         <span class="layout-text">账户设置</span>
@@ -50,7 +54,7 @@
                 <activeAgent v-if="agentId"></activeAgent>
 
                 <Button v-if="agentId" type="primary" @click="startConversation" icon="chatbox" style="margin-top:10px;">对话测试</Button>
-                <Modal v-model="showConversation" width="360">
+                <Modal v-model="showConversation">
                     <p slot="header" style="color:#f60;text-align:center">
                         <Icon type="chatbox"></Icon>
                         <span>{{conversationTitle}}</span>
@@ -59,22 +63,21 @@
                         <converation ref="conversation"></converation>
                     </div>
                     <div slot="footer">
-                        <Button type="primary" long :loading="loading" @click="sendText">发送</Button>
+                        <Button type="ghost" :loading="loading" @click="resetConversation">重置</Button>
+                        <Button type="primary" :loading="loading" @click="sendText">发送</Button>
                     </div>
                 </Modal>
             </Col>
 
             <Col :xs="18" :sm="19" :md="20" :lg="21" style="height:100%;">
-                <!--<div class="layout-breadcrumb">
+                <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="/">首页</Breadcrumb-item>
-                        <Breadcrumb-item>系统仪表盘</Breadcrumb-item>
+                        <Breadcrumb-item>我的机器人</Breadcrumb-item>
                     </Breadcrumb>
-                </div>-->
+                </div>
                 <div class="layout-content">
-                    <div class="layout-content-main">
-                        <router-view></router-view>
-                    </div>
+                        <router-view class="layout-content-main"></router-view>
                 </div>
                 <div class="layout-copy">
                     © 2012-2017 YayaBot — 深圳爱用科技有限公司
@@ -123,8 +126,13 @@
                 setTimeout(() => {
                     this.loading = false;
                 }, 500);
-                
-                
+            },
+            resetConversation(){
+                let conversationId = this.$store.state.conversation.id;
+                this.$ajax.get('/v1/Conversation/' + conversationId + '/Reset')
+                    .then(response => {
+                        this.$Message.info("重置会话成功");
+                    });
             }
         },
 		components: {
@@ -153,7 +161,7 @@
         overflow: auto;
         background: #fff;
         border-radius: 4px;
-        height: 85%;
+        
     }
     .layout-content-main{
         padding: 10px;

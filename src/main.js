@@ -19,6 +19,7 @@ Vue.use(iView);
 Vue.use(VueLocalStorage, {name: 'ls'});
 Vue.prototype.$ajax = HTTP;
 Vue.prototype.$config = config;
+Vue.prototype.$util = Util;
 
 // 路由配置
 const RouterConfig = {

@@ -146,6 +146,19 @@ const routers = [
                 component: (resolve) => require(['./views/hotword/training.vue'], resolve)
             }
         ]
+    },
+    {
+        path: '/integration',
+        component: (resolve) => require(['./views/master.vue'], resolve),
+        children: [
+            {
+                path: 'third-parts',
+                meta: {
+                    title: '系统集成'
+                },
+                component: (resolve) => require(['./views/integration/third-parts.vue'], resolve)
+            }
+        ]
     }
 
 ];

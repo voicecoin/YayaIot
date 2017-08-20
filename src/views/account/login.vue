@@ -3,21 +3,25 @@
 </style>
 
 <template>
-    <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
-        <Form-item prop="username">
-            <Input type="text" v-model="formInline.username" placeholder="邮箱">
-                <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </Input>
-        </Form-item>
-        <Form-item prop="password">
-            <Input type="password" v-model="formInline.password" placeholder="密码">
-                <Icon type="ios-locked-outline" slot="prepend"></Icon>
-            </Input>
-        </Form-item>
-        <Form-item>
-            <Button @click="handleSubmit('formInline')">登录</Button>
-        </Form-item>
-    </Form>
+    <Row>
+        <Form ref="formInline" :model="formInline" :rules="ruleInline">
+            <Form-item prop="username">
+                <Input type="text" v-model="formInline.username" placeholder="邮箱">
+                    <Icon type="ios-person-outline" slot="prepend"></Icon>
+                </Input>
+            </Form-item>
+            <Form-item prop="password">
+                <Input type="password" v-model="formInline.password" placeholder="密码">
+                    <Icon type="ios-locked-outline" slot="prepend"></Icon>
+                </Input>
+            </Form-item>
+        </Form>
+        <div>
+            <Button type="primary" @click="goto('/register')">免费注册</Button>
+            <Button @click="handleSubmit('formInline')" style="margin-left:10px;">登录</Button>
+            <p style="margin-top:30px;">立即使用，开启人机交互新模式</p>
+        </div>
+    </Row>
 </template>
 
 <script>

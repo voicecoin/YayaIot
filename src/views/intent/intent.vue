@@ -20,14 +20,23 @@
 
 			<Row v-if="current==1" style="margin:20px;min-height:400px;">
 				<Col span="24">
-					<Form label-position="left" :label-width="80">
-						<Form-item label="用户说：" prop="userSay">
-							<Input v-model="intent.userSay" placeholder=" 按回车键输入" @on-enter="handleAddUserSay" style="margin-bottom:20px;"></Input>
-						</Form-item>
-					</Form>
 					<ul>
 						<li v-for="data in intent.userSays">
 							<expression :userSay="data"></expression>
+						</li>
+						<li>
+							<div class="ivu-input" style="border-radius:0px;">
+								<Tooltip placement="right">
+									<Icon type="quote"></Icon>
+									<div slot="content">
+										<h3>点击进行模式切换</h3>
+										<p>普通模式下文本会由系统自动识别词库</p>
+										<p>模板模式下系统不会进行识别 </p>
+									</div>
+								</Tooltip>
+								<div v-model="intent.userSay" contenteditable @keyup.enter="handleAddUserSay" class="expression" placeholder=" 按回车键输入">
+                				</div>
+							</div>
 						</li>
 					</ul>
 				</Col>
@@ -170,4 +179,10 @@
 	[contenteditable]:focus {
 		outline: 0px solid transparent;
 	}
+	.expression {
+        width:97%;
+        float:right;
+        border:0px;
+        font-size:13px;
+    }
 </style>
