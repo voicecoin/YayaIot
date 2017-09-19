@@ -68,13 +68,26 @@ const routers = [
         ]
     },
     {
+        path: '/faq',
+        component: (resolve) => require(['./views/master.vue'], resolve),
+        children: [
+            {
+                path: 'corpus',
+                meta: {
+                    title: '快速问答'
+                },
+                component: (resolve) => require(['./views/faq/corpus.vue'], resolve)
+            }
+        ]
+    },
+    {
         path: '/intent',
         component: (resolve) => require(['./views/master.vue'], resolve),
         children: [
             {
                 path: 'intents',
                 meta: {
-                    title: '意图管理'
+                    title: '任务意图'
                 },
                 component: (resolve) => require(['./views/intent/intents.vue'], resolve)
             }

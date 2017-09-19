@@ -63,8 +63,26 @@
 				</Col>
 			</Row>
 		</Tab-pane>
-        <Tab-pane label="高级设置" name="advance"></Tab-pane>
-        <Tab-pane label="导入与导出" name="migrate"></Tab-pane>
+        <Tab-pane label="高级设置" name="advance">
+			<Row>
+				<Card>
+					<p slot="title">能力拓展</p>
+					<p>通过添加新技能，提升{{agent.name}}的对话能力</p>
+					<div v-for="ally in allies" style="margin:10px;">
+						<Checkbox :label="ally.name">
+							<span style="line-height:60px;">{{ally.name}}</span>
+						</Checkbox>
+						<img v-if="ally.avatar" :src="ally.avatar" style="height:60px;margin-right:10px;float:left;"/>
+            			<img v-else src="../../images/bot.png" style="height:60px;margin-right:10px;float:left;"/>
+					</div>
+				</Card>
+			</Row>
+		</Tab-pane>
+        <Tab-pane label="导入与导出" name="migrate">
+			<Row>
+				<Button type="ghost">导出</Button>
+			</Row>
+		</Tab-pane>
     </Tabs>
 </template>
 <script>
@@ -75,6 +93,7 @@
 				agent: {
 					name: "Blank"
 				},
+				allies: [],
 				showDeleteConfirm: false,
 				modal_loading: false
 			}
@@ -84,6 +103,11 @@
 			this.$ajax.get(`/v1/Agents/` + agentId)
 				.then(response => {
 					this.agent = response.data;
+				});
+
+			this.$ajax.get(`/v1/Skills/` + agentId)
+				.then(response => {
+					this.allies = response.data;
 				});
 		},
 		methods:{

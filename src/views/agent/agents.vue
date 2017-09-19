@@ -21,7 +21,7 @@
 						</div>
 						<div v-else>
 							<h3>&nbsp;</h3>
-							<p>还没有自己的物联网机器人？</p>
+							<p>还没有自己的对话机器人？</p>
 						</div>
 					</Row>
 					<Button v-if="item.id" type="ghost" @click="handleAgentDetail(item.id)">详细信息</Button>

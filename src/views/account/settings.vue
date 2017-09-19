@@ -6,7 +6,7 @@
 				<Col span="3" style="text-align:center;">
 					<img v-if="user.avatar" :src="user.avatar" class="user-status-img"/>
                     <img v-else src="../../images/user.png" class="user-status-img"/>
-                    <Button type="ghost">上传头像</Button>
+                    <!--<Button type="ghost">上传头像</Button>-->
 				</Col>
 				<Col span="18">
 					<Form :model="user" :label-width="80">

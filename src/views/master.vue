@@ -25,19 +25,23 @@
                         <Icon type="outlet" size="24"></Icon>
                         <span class="layout-text">机器人&nbsp;&nbsp;</span>
                     </Menu-item>
+                    <Menu-item name="/faq/corpus">
+                        <Icon type="android-wifi" size="24"></Icon>
+                        <span class="layout-text">快速问答</span>
+                    </Menu-item>
                     <Menu-item name="/intent/intents">
                         <Icon type="pull-request" size="24"></Icon>
-                        <span class="layout-text">意图管理</span>
+                        <span class="layout-text">任务意图</span>
                     </Menu-item>
                     <Menu-item name="/entity/entity-types">
                         <Icon type="ios-book" size="24"></Icon>
                         <span class="layout-text">词库管理</span>
                     </Menu-item>
-                    <Menu-item name="/hotword/training">
+                    <!--<Menu-item name="/hotword/training">
                         <Icon type="ios-pulse" size="24"></Icon>
                         <span class="layout-text">热词训练</span>
                     </Menu-item>
-                    <!--<Menu-item name="/chat/window">
+                    <Menu-item name="/chat/window">
                         <Icon type="ios-chatboxes" size="28"></Icon>
                         <span class="layout-text">会话管理</span>
                     </Menu-item>-->
@@ -52,21 +56,8 @@
                 </Menu>
 
                 <activeAgent v-if="agentId"></activeAgent>
+                <conversationTest v-if="agentId"></conversationTest>
 
-                <Button v-if="agentId" type="primary" @click="startConversation" icon="chatbox" style="margin-top:10px;">对话测试</Button>
-                <Modal v-model="showConversation">
-                    <p slot="header" style="color:#f60;text-align:center">
-                        <Icon type="chatbox"></Icon>
-                        <span>{{conversationTitle}}</span>
-                    </p>
-                    <div>
-                        <converation ref="conversation"></converation>
-                    </div>
-                    <div slot="footer">
-                        <Button type="ghost" :loading="loading" @click="resetConversation">重置</Button>
-                        <Button type="primary" :loading="loading" @click="sendText">发送</Button>
-                    </div>
-                </Modal>
             </Col>
 
             <Col :xs="18" :sm="19" :md="20" :lg="21" style="height:100%;">
@@ -91,19 +82,15 @@
 <script>
     import active from './agent/active.vue';
     import userStatus from './account/user-status.vue';
-    import converation from './conversation/window.vue'
-    
+    import conversationTest from './conversation/test.vue';
+
     export default {
         data () {
             return {
-				showConversation: false,
-                loading: false
+
             }
         },
         computed: {
-            conversationTitle() {
-				return "正在和" + this.$store.state.agent.name + "进行对话测试";
-			},
             agentId(){
                 return this.$store.state.agent.id;
             }
@@ -111,34 +98,12 @@
         methods: {
             redirect(path){
                 this.$router.push({path: path});
-            },
-            startConversation(){
-                var agentId = this.$store.state.agent.id;
-                this.$ajax.get('/v1/Conversation/' + agentId)
-                    .then(response => {
-                        this.showConversation = true;
-                        this.$store.state.conversation.id = response.data;
-                    });
-            },
-            sendText(){
-                this.loading = true;
-                this.$refs.conversation.sendMessage();
-                setTimeout(() => {
-                    this.loading = false;
-                }, 500);
-            },
-            resetConversation(){
-                let conversationId = this.$store.state.conversation.id;
-                this.$ajax.get('/v1/Conversation/' + conversationId + '/Reset')
-                    .then(response => {
-                        this.$Message.info("重置会话成功");
-                    });
             }
         },
 		components: {
             activeAgent: active,
             userStatus,
-            converation
+            conversationTest
 		}
     }
 </script>

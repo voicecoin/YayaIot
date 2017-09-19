@@ -1,7 +1,7 @@
 <template>
-<div class="text">
-    <textarea placeholder="按 Ctrl + Enter 发送" v-model="content" @keyup="onKeyup"></textarea>
-</div>
+    <div class="text">
+        <textarea placeholder="按 Ctrl + Enter 发送" v-model="content" @keyup="onKeyup"></textarea>
+    </div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
         props:['messages'],
         data () {
             return {
-                content: '天气'
+                content: ''
             };
         },
         methods: {
