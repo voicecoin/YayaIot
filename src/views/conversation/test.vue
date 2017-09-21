@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Button v-if="agentId" type="primary" @click="startConversation" icon="chatbox" style="margin-top:10px;">对话测试</Button>
         <Modal v-model="showConversation">
             <p slot="header" style="color:#f60;text-align:center">
                 <Icon type="chatbox"></Icon>
@@ -21,6 +20,7 @@
     import converation from './window.vue';
 
     export default {
+        props: ['agent'],
         data () {
             return {
 				showConversation: false,
@@ -29,23 +29,21 @@
         },
         computed: {
             conversationTitle() {
-				return "正在和" + this.$store.state.agent.name + "进行对话测试";
-			},
-            agentId(){
-                return this.$store.state.agent.id;
-            }
+				return "正在和" + this.agent.name + "进行对话测试";
+			}
         },
         methods: {
             redirect(path){
                 this.$router.push({path: path});
             },
-            startConversation(){
-                var agentId = this.$store.state.agent.id;
+            start(){
+                var agentId = this.agent.id;
                 this.$ajax.get('/v1/Conversation/' + agentId)
                     .then(response => {
                         this.showConversation = true;
                         this.$store.state.conversation.id = response.data;
                     });
+                this.$refs.conversation.reset();
             },
             sendText(){
                 this.loading = true;

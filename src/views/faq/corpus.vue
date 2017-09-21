@@ -6,17 +6,7 @@
             <Input v-model="text" icon="search" placeholder="请输入要搜索的词库分类..." style="width: 30%;" :autofocus="true"></Input>
             <Button type="primary" icon="plus" style="margin-left:1%;" @click="addFaq">添加问答对</Button>
             <Upload :action="uploadUrl" :headers="uploadHeaders" accept=".txt" :show-upload-list="false" :on-success="uploadedFaq" style="margin-left:1%;display:inline-block;">
-                <Poptip placement="right" trigger="hover">
-                    <Button type="ghost" icon="ios-cloud-upload-outline">导入问答对</Button>
-                    <div slot="content">
-                        <h3>问答对文本格式</h3>
-                        <p>输入问题</p>
-                        <p>输入答案</p>
-                        <p>-break-</p>
-                        <p>输入问题</p>
-                        <p>输入答案</p>
-                    </div>
-                </Poptip>
+                <Button type="ghost" icon="ios-cloud-upload-outline" @click="handleUploadClick">导入问答对</Button>
             </Upload>
             <!--<Button type="ghost" icon="ios-cloud-download-outline">导出问答</Button>
             <Button type="ghost" @click="train">测试</Button>-->
@@ -148,6 +138,14 @@
                     });
             },
 
+            handleUploadClick(){
+                this.$Notice.info({
+                    title: '问答对文本格式',
+                    desc: '<p>输入问题</p><p>输入答案</p><p>-break-</p><p>输入问题</p><p>输入答案</p>',
+                    duration: 10
+                });
+            },
+
             train(){
                 var agentId = this.$store.state.agent.id;
                 this.$ajax.get('/v1/faq/train/' + agentId)
@@ -158,6 +156,11 @@
             },
 
             uploadedFaq(){
+                this.$Notice.info({
+                    title: '对话训练',
+                    desc: '更新语库后，机器会在后台自动进行对话训练。对话生效可能会延迟一段时间，时间长短取决于语库的大小。',
+                    duration: 8
+                });
                 this.changePage(this.page);
             },
 
@@ -171,7 +174,12 @@
                     .then(response => {
                         this.changePage(this.page);
                         this.showAddForm = false;
-                        this.$Message.info("添加问答对成功。");
+
+                        this.$Notice.info({
+                                title: '添加问答对成功',
+                                desc: '添加新的问答对后，机器会在后台自动进行对话训练。对话生效可能会延迟一段时间，时间长短取决于语库的大小。',
+                                duration: 8
+                            });
                     });
             },
 

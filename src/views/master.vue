@@ -25,15 +25,15 @@
                         <Icon type="outlet" size="24"></Icon>
                         <span class="layout-text">机器人&nbsp;&nbsp;</span>
                     </Menu-item>
-                    <Menu-item name="/faq/corpus">
+                    <Menu-item v-if="agentId" Menu-item name="/faq/corpus">
                         <Icon type="android-wifi" size="24"></Icon>
                         <span class="layout-text">快速问答</span>
                     </Menu-item>
-                    <Menu-item name="/intent/intents">
+                    <Menu-item v-if="agentId" Menu-item name="/intent/intents">
                         <Icon type="pull-request" size="24"></Icon>
                         <span class="layout-text">任务意图</span>
                     </Menu-item>
-                    <Menu-item name="/entity/entity-types">
+                    <Menu-item v-if="agentId" Menu-item name="/entity/entity-types">
                         <Icon type="ios-book" size="24"></Icon>
                         <span class="layout-text">词库管理</span>
                     </Menu-item>
@@ -45,7 +45,7 @@
                         <Icon type="ios-chatboxes" size="28"></Icon>
                         <span class="layout-text">会话管理</span>
                     </Menu-item>-->
-                    <Menu-item name="/integration/third-parts">
+                    <Menu-item v-if="agentId" name="/integration/third-parts">
                         <Icon type="usb" size="28"></Icon>
                         <span class="layout-text">系统集成</span>
                     </Menu-item>
@@ -56,8 +56,6 @@
                 </Menu>
 
                 <activeAgent v-if="agentId"></activeAgent>
-                <conversationTest v-if="agentId"></conversationTest>
-
             </Col>
 
             <Col :xs="18" :sm="19" :md="20" :lg="21" style="height:100%;">
@@ -82,7 +80,6 @@
 <script>
     import active from './agent/active.vue';
     import userStatus from './account/user-status.vue';
-    import conversationTest from './conversation/test.vue';
 
     export default {
         data () {
@@ -91,6 +88,10 @@
             }
         },
         computed: {
+            agent(){
+                return this.$store.state.agent;
+            },
+
             agentId(){
                 return this.$store.state.agent.id;
             }
@@ -102,8 +103,7 @@
         },
 		components: {
             activeAgent: active,
-            userStatus,
-            conversationTest
+            userStatus
 		}
     }
 </script>

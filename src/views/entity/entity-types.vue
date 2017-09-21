@@ -78,7 +78,7 @@
                                             this.editEntries(params);
                                         }
                                     }
-                                }, '词条')
+                                }, '词条管理')
                             ]);
                         }
                     }

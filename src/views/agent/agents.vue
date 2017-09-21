@@ -4,12 +4,12 @@
 			<Row type="flex" justify="center" align="top">
 				<Col span="8" style="text-align:center;">
 					<div v-if="item.avatar">
-						<img :src="item.avatar" style="width:90%;">
+						<img :src="item.avatar" style="width:60%;">
 						<h4>免费版</h4>
 					</div>
 					<div v-else style="text-aligh:center;">
-						<img v-if="item.id" src="../../images/bot.png" style="width:90%;">
-						<img v-else src="../../images/int_01.png" style="width:90%;">
+						<img v-if="item.id" src="../../images/bot.png" style="width:60%;">
+						<img v-else src="../../images/int_01.png" style="width:60%;">
 					</div>
 				</Col>
 				<Col span="16">
@@ -24,21 +24,33 @@
 							<p>还没有自己的对话机器人？</p>
 						</div>
 					</Row>
-					<Button v-if="item.id" type="ghost" @click="handleAgentDetail(item.id)">详细信息</Button>
-					<Button v-else type="primary" @click="handleAgentCreate" icon="plus">创建机器人</Button>
+					
+					<ButtonGroup>
+						<Button v-if="item.id" type="ghost" @click="handleAgentDetail(item.id)">详细信息</Button>
+						<Button v-if="item.id" type="ghost" @click="startConversation(item.id)" icon="chatbox">测试</Button>
+						<Button v-if="item.id" type="ghost" icon="share" disabled>分享</Button>
+					</ButtonGroup>
+					<Button v-if="item.id==null" type="primary" @click="handleAgentCreate" icon="plus">创建机器人</Button>
 				</Col>
 			</Row>
 		</Card>
+
+		<conversationTest ref="conversation" :agent="agent"></conversationTest>
 	</div>
 </template>
 
 <script>
-
+	import conversationTest from '../conversation/test.vue';
+	
     export default {
         data () {
             return {
-				agent: { },
                 items: []
+            }
+        },
+        computed: {
+            agent() {
+                return this.$store.state.agent;
             }
         },
 		methods: {
@@ -49,6 +61,10 @@
 			},
 			handleAgentCreate(){
 				this.$router.push('/agent/create');
+			},
+			startConversation(agentId){
+				this.$store.commit('setAgentId', agentId);
+				this.$refs.conversation.start();
 			}
 		},
 		created() {
@@ -58,6 +74,9 @@
 					this.items = response.data.items;
 					this.items.push({});
 				});
+		},
+		components: {
+            conversationTest: conversationTest
 		}
     }
 </script>

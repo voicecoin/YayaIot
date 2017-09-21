@@ -24,11 +24,12 @@
                 &nbsp;
             </Col>
             <Col span="20" style="text-align:center;">
-                <Button type="ghost" @click="cancelAction">取消</Button>
+                <Button type="ghost" @click="cancelAction">返回</Button>
                 <Button v-if="entityType.id" type="primary" @click="updateEntity">保存</Button>
                 <Button v-else type="primary" @click="createEntity">创建</Button>
 
-                <Button v-if="entityType.id" type="dashed" @click="showDeleteConfirm = true" style="float:left;margin-right:10px;">删除词库</Button>
+                <!--<Button v-if="entityType.id" type="ghost" @click="addEntityEntry(entityType.id)">词条管理</Button>-->
+                <Button v-if="entityType.id" type="error" @click="showDeleteConfirm = true" style="margin-left:50px;">删除词库</Button>
                 <Modal v-model="showDeleteConfirm" width="360">
                     <p slot="header" style="color:#f60;text-align:center">
                         <Icon type="information-circled"></Icon>
@@ -42,7 +43,6 @@
                         <Button type="error" size="large" long :loading="modal_loading" @click="handleRemove">删除</Button>
                     </div>
                 </Modal>
-                <Button v-if="entityType.id" type="ghost" @click="addEntityEntry(entityType.id)" style="float:left;">词条管理</Button>
             </Col>
         </Row>
     </div>

@@ -14,14 +14,14 @@
             <Tag v-for="context in intent.contexts" :key="context" :name="context" type="dot" closable @on-close="handleRemoveContext(context)">{{context}}</Tag>
             <Input v-model="context" placeholder="添加上文，回车确认" @on-enter="handleAddContext(intent.contexts)" style="width:150px;margin-right: 10px;"></Input>
         </Form-item>
-        <Form-item label="传出下文">
+        <Form-item label="传出下文" v-if="intent.responses.length > 0">
             <Tag v-for="context in intent.responses[0].affectedContexts" :key="context.name" :name="context.name" closable @on-close="handleRemoveAffectedContext(context.name)">
                 <Tooltip content="状态有效期" placement="top">
                     <span contenteditable style="margin-right:5px;font-size:13px;font-weight:bold;">{{context.lifespan}}</span>
                 </Tooltip>
                 {{context.name}}
             </Tag>
-            <Input v-model="affectedContext" placeholder="添加下文，回车确认" @on-enter="handleAddAffectedContext(intent.responses[0].affectedContexts)" style="width:150px;margin-right: 10px;"></Input>
+            <Input v-if="affectedContext" v-model="affectedContext" placeholder="添加下文，回车确认" @on-enter="handleAddAffectedContext(intent.responses[0].affectedContexts)" style="width:150px;margin-right: 10px;"></Input>
         </Form-item>
     </Form>
 </template>

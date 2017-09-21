@@ -9,7 +9,7 @@
                 </div>
             </Tooltip>
 
-            <div contenteditable @mouseup="grab" @keyup.enter="submit" class="expression">
+            <div contenteditable @mouseup="grab" class="expression"><!--@keyup.enter="mark"-->
                 <div v-for="seg in userSay.data" style="float:left;">
                     <Button v-if="seg.meta" type="text" @click="showDetail(seg)" :style="{backgroundColor: seg.color, marginRight:'2px'}" size="small">{{seg.text}}</Button>
                     <span v-else class="ivu-btn ivu-btn-text ivu-btn-small">{{seg.text}}</span>
@@ -121,6 +121,11 @@
                     
                 }
             },
+
+            mark(){
+
+            },
+
             showDetail(seg){
                 this.currentSeg = seg;
                 this.dataDetailVisible = true;

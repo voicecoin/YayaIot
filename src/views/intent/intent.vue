@@ -20,23 +20,13 @@
 
 			<Row v-if="current==1" style="margin:20px;min-height:400px;">
 				<Col span="24">
+					<Input v-model="userSay" @on-enter="addUserSay" placeholder="按回车输入用户表达" style="margin-bottom:20px;">
+						<span slot="prepend">用户说：</span>
+					</Input>
+
 					<ul>
 						<li v-for="data in intent.userSays">
 							<expression :userSay="data"></expression>
-						</li>
-						<li>
-							<div class="ivu-input" style="border-radius:0px;">
-								<Tooltip placement="right">
-									<Icon type="quote"></Icon>
-									<div slot="content">
-										<h3>点击进行模式切换</h3>
-										<p>普通模式下文本会由系统自动识别词库</p>
-										<p>模板模式下系统不会进行识别 </p>
-									</div>
-								</Tooltip>
-								<div v-model="intent.userSay" contenteditable @keyup.enter="handleAddUserSay" class="expression" placeholder=" 按回车键输入">
-                				</div>
-							</div>
 						</li>
 					</ul>
 				</Col>
@@ -92,7 +82,8 @@
 						{ type: 'string', min: 1, message: '用户表达不能少于1个字', trigger: 'blur' }
                     ]
 				},
-				current: 0
+				current: 0,
+				userSay: ''
             }
         },
         computed: {
@@ -109,6 +100,13 @@
                     this.current -= 1;
                 }
             },
+			addUserSay(){
+				let text = this.userSay;
+				this.$ajax.get('/v1/Analyzer/Markup?text=' + text)
+					.then(response => {
+							this.intent.userSays.push({text: text, data: response.data});
+						});
+			},
 			save() {
 				var agentId = this.$store.state.agent.id;
 				var intentId = this.intent.id;
