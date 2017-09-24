@@ -69,7 +69,7 @@
 					<p slot="title">能力拓展</p>
 					<p>通过添加新技能，提升{{agent.name}}的对话能力</p>
 					<div v-for="ally in allies" style="margin:10px;">
-						<Checkbox :label="ally.name">
+						<Checkbox :label="ally.name" v-model="ally.isAlly" @on-change="updateSkill(ally)">
 							<span style="line-height:60px;">{{ally.name}}</span>
 						</Checkbox>
 						<img v-if="ally.avatar" :src="ally.avatar" style="height:60px;margin-right:10px;float:left;"/>
@@ -126,6 +126,21 @@
 						this.showDeleteConfirm = false;
 						this.$Message.info("删除成功");
 					});
+			},
+
+			updateSkill(ally){
+				let agentId = this.$route.query.agentId;
+				if(ally.isAlly){
+					this.$ajax.post('/v1/Skills/' + agentId + '/' + ally.skillId)
+						.then(response => {
+							this.$Message.info("添加技能成功");
+						});
+				} else if(!ally.isAlly){
+					this.$ajax.delete('/v1/Skills/' + agentId + '/' + ally.skillId)
+						.then(response => {
+							this.$Message.info("移除技能成功");
+						});
+				}
 			}
 		}
     }

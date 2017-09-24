@@ -19,16 +19,20 @@
 			</Row>
 
 			<Row v-if="current==1" style="margin:20px;min-height:400px;">
-				<Col span="24">
+				<Col span="13">
 					<Input v-model="userSay" @on-enter="addUserSay" placeholder="按回车输入用户表达" style="margin-bottom:20px;">
 						<span slot="prepend">用户说：</span>
 					</Input>
 
 					<ul>
-						<li v-for="data in intent.userSays">
+						<li v-for="data in intent.userSays" @click="switchUserSay(data)">
 							<expression :userSay="data"></expression>
 						</li>
 					</ul>
+				</Col>
+				<Col span="1">&nbsp;</Col>
+				<Col span="10">
+					<semantic :userSay="currentExpression"></semantic>
 				</Col>
 			</Row>
 
@@ -54,6 +58,7 @@
 	import expression from './expression.vue';
 	import parameters from './parameters.vue';
 	import response from './response.vue';
+	import semantic from './semantic.vue';
 
 	export default {
         data () {
@@ -83,7 +88,8 @@
                     ]
 				},
 				current: 0,
-				userSay: ''
+				userSay: '',
+				currentExpression: {}
             }
         },
         computed: {
@@ -100,6 +106,11 @@
                     this.current -= 1;
                 }
             },
+
+			switchUserSay(data){
+				this.currentExpression = data;
+			},
+
 			addUserSay(){
 				let text = this.userSay;
 				this.$ajax.get('/v1/Analyzer/Markup?text=' + text)
@@ -143,7 +154,8 @@
 			basic,
 			expression,
 			parameters,
-			response
+			response,
+			semantic
 		},
 		mounted() {
 			let intentId = this.$route.query.intentId;

@@ -83,7 +83,7 @@
 
 <style scoped lang="less">
     .agent{
-        width:25%;
+        width:30%;
         display: inline-block;
 		margin: 10px;
     }
