@@ -26,7 +26,7 @@
 		},
         methods: {
 			handleLogout() {
-                this.$ls.remove('access_token');
+                this.$ls.remove('token');
                 this.$router.push('/');
             },
             handleUserSettings(){

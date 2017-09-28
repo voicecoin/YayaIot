@@ -61,7 +61,7 @@
 				
                 this.$ajax.post(`/token`, qs.stringify(this.formInline), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 					.then(response => {
-                        this.$store.commit('authenticated', response.data.access_token)
+                        this.$store.commit('authenticated', response.data.token)
 					});
             }
         }

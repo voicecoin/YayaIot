@@ -86,7 +86,7 @@ const store = new Vuex.Store({
         }
     },
     authenticated(state, token) {
-        localStorage.setItem('access_token', token);
+        localStorage.setItem('token', token);
         HTTP.get('/v1/account')
         .then(response => {
             state.user = response.data;

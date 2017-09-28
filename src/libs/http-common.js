@@ -10,7 +10,7 @@ export const HTTP = axios.create({
 
 HTTP.interceptors.request.use(function (config) {
     // Do something before request is sent
-	config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+	config.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
     return config;
   }, function (error) {
     // Do something with request error
