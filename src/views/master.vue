@@ -1,10 +1,20 @@
 <template>
     <div class="layout">
         <Row class="layout-header" type="flex" align="middle">
-            <Col span="4">
-                <div class="layout-logo-left"><img src="../images/iot-logo.png" style="height:60px;margin-left:10%;margin-top:5px;"/></div>
+            <Col span="3">
+                <div class="layout-logo-left">
+                    <img src="../images/logo_sm.png" style="float:left;"/>
+                    <span style="font-size:2.5em;float:left;margin-left:10px;font-weight:bold;">yaya.ai</span>
+                </div>
+                                
+            </Col>
+            <Col span="1">
+                <Button type="text">
+                    <Icon type="navicon" size="32"></Icon>
+                </Button>
             </Col>
             <Col span="16" class="layout-ceiling-main">
+
                 <Icon type="home" size="16"></Icon><a href="/">首页</a>
                 <a href="http://forum.yaya.ai" target="_blank">聊天机器人论坛</a>
                 <a href="/">开发文档</a>
@@ -22,11 +32,11 @@
                         <div class="layout-text" @click="openMenu('dashboard', '/dashboard')">仪表盘</div>
                     </Menu-item>-->
                     <Menu-item name="/agent/agents">
-                        <Icon type="outlet" size="24"></Icon>
+                        <Icon type="ios-body-outline" size="24"></Icon>
                         <span class="layout-text">机器人&nbsp;&nbsp;</span>
                     </Menu-item>
                     <Menu-item v-if="agentId" Menu-item name="/faq/corpus">
-                        <Icon type="android-wifi" size="24"></Icon>
+                        <Icon type="chatbubble-working" size="24"></Icon>
                         <span class="layout-text">快速问答</span>
                     </Menu-item>
                     <Menu-item v-if="agentId" Menu-item name="/intent/intents">
@@ -149,7 +159,7 @@
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
     .layout-logo-left{
-        text-align: center;
+        padding-left: 2em;
     }
     .layout-ceiling-main{
         text-align: center;
