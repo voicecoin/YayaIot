@@ -1,7 +1,7 @@
 <template>
     <div class="layout">
         <Row class="layout-header" type="flex" align="middle">
-            <Col span="3">
+            <Col :xs="0" :sm="3">
                 <div class="layout-logo-left">
                     <img src="../images/logo_sm.png" style="float:left;"/>
                     <span style="font-size:2.5em;float:left;margin-left:10px;font-weight:bold;">yaya.ai</span>
@@ -9,22 +9,22 @@
                                 
             </Col>
             <Col span="1">
-                <Button type="text">
+                <Button type="text" @click="handleMenuDisplayStatus">
                     <Icon type="navicon" size="32"></Icon>
                 </Button>
             </Col>
-            <Col span="16" class="layout-ceiling-main">
+            <Col :xs="23" :sm="16" class="layout-ceiling-main">
 
                 <Icon type="home" size="16"></Icon><a href="/">首页</a>
                 <a href="http://forum.yaya.ai" target="_blank">聊天机器人论坛</a>
                 <a href="/">开发文档</a>
             </Col>
-            <Col span="4" style="text-align:right;">
+            <Col :xs="0" :sm="4" style="text-align:right;">
                 <userStatus></userStatus>
             </Col>
         </Row>
         <Row style="height:100%;">
-            <Col :xs="6" :sm="5" :md="4" :lg="3" class="layout-menu-left">
+            <Col :xs="0" :sm="5" :md="4" :lg="3" class="layout-menu-left">
                 <Menu theme="dark" width="auto" active-name="/agent/agents" @on-select="redirect">
                     
                     <!--<Menu-item name="dashboard">
@@ -68,7 +68,7 @@
                 <activeAgent v-if="agentId"></activeAgent>
             </Col>
 
-            <Col :xs="18" :sm="19" :md="20" :lg="21" style="height:100%;">
+            <Col :xs="24" :sm="19" :md="20" :lg="21" style="height:100%;overflow:scroll">
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="/">首页</Breadcrumb-item>
@@ -107,6 +107,10 @@
             }
         },
         methods: {
+            handleMenuDisplayStatus(){
+
+            },
+
             redirect(path){
                 this.$router.push({path: path});
             }

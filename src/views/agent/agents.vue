@@ -24,14 +24,15 @@
 							<p>还没有自己的对话机器人？</p>
 						</div>
 					</Row>
-					
-					<ButtonGroup>
-						<Button v-if="item.id" type="ghost" @click="handleAgentDetail(item.id)">详细信息</Button>
-						<Button v-if="item.id" type="ghost" @click="startConversation(item.id)" icon="chatbox">测试</Button>
-						<Button v-if="item.id" type="ghost" icon="share" disabled>分享</Button>
-					</ButtonGroup>
-					<Button v-if="item.id==null" type="primary" @click="handleAgentCreate" icon="plus">创建机器人</Button>
 				</Col>
+			</Row>
+			<Row type="flex" justify="center">
+				<ButtonGroup>
+					<Button v-if="item.id" type="ghost" @click="handleAgentDetail(item.id)" icon="ios-gear">设置</Button>
+					<Button v-if="item.id" type="ghost" @click="startConversation(item.id)" icon="chatbox">测试</Button>
+					<Button v-if="item.id" type="ghost" icon="share" disabled>分享</Button>
+				</ButtonGroup>
+				<Button v-if="item.id==null" type="primary" @click="handleAgentCreate" icon="plus">创建机器人</Button>
 			</Row>
 		</Card>
 
@@ -83,7 +84,7 @@
 
 <style scoped lang="less">
     .agent{
-        width:30%;
+        width:300px;
         display: inline-block;
 		margin: 10px;
     }

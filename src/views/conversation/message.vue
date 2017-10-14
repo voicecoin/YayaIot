@@ -79,7 +79,7 @@ export default {
 <style lang="less" scoped>
 .message {
     padding: 10px 15px;
-    height: 400px;
+    height: 300px;
     overflow-y: scroll;
     li {
         margin-bottom: 15px;
