@@ -79,7 +79,7 @@
                         <router-view class="layout-content-main"></router-view>
                 </div>
                 <div class="layout-copy">
-                    © 2012-2017 YayaBot — 深圳爱用科技有限公司
+                    © 2012-2018 YayaBot — 深圳爱用科技有限公司
                 </div>
             </Col>
         </Row>
