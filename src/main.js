@@ -87,12 +87,13 @@ const store = new Vuex.Store({
     },
     authenticated(state, token) {
         localStorage.setItem('token', token);
-        HTTP.get('/v1/account')
+        router.push('/agent/agents');
+        /*HTTP.get('/v1/account')
         .then(response => {
             state.user = response.data;
             localStorage.setItem('user', JSON.stringify(response.data));
             router.push('/agent/agents');
-        });
+        });*/
     }
   }
 })

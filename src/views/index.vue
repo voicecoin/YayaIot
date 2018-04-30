@@ -7,9 +7,9 @@
 					<Col span="20">
 						<div></div>
 						<h1>
-							<img src="../images/logo.png">
+							<img src="../images/logo-icon.png">
 						</h1>
-						<div class="title">YAYA 人工智能对话机器人制作平台</div>
+						<div class="title">Voiceweb 人工智能对话机器人制作平台</div>
 						<div class="slogan"><vue-typer text='嘿，你好！' :type-delay='500' :repeat='0'></vue-typer></div>
 						
 					</Col>
@@ -24,7 +24,7 @@
 				</Row>
 				<Row style="height:100px;" type="flex" justify="center" align="bottom">
 					<Col>
-						<span>© 2012-2017 深圳爱用科技有限公司</span>
+						<span>© 2012-2018 深圳爱用科技有限公司</span>
 					</Col>
 				</Row>
 			</Col>

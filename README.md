@@ -1,10 +1,10 @@
-Yaya Console Web Portal
+Voiceweb AI Chatbot Web Console
 ===
 
 ## How to install
 #### Download source code
 ````sh
-git clone https://github.com/yybot/YayaIot
+git clone https://github.com/voicecoin/voiceweb-chatbot-vue
 ````
 #### Run node.js server
 ````sh

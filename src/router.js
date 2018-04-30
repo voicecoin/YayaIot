@@ -2,14 +2,14 @@ const routers = [
     {
         path: '/',
         meta: {
-            title: 'YAYABOT'
+            title: 'Voicebot'
         },
         component: (resolve) => require(['./views/index.vue'], resolve)
     },
     {
         path: '/login',
         meta: {
-            title: 'YAYABOT'
+            title: 'Voicebot'
         },
         component: (resolve) => require(['./views/index.vue'], resolve)
     },

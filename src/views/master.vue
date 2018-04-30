@@ -3,10 +3,8 @@
         <Row class="layout-header" type="flex" align="middle">
             <Col :xs="0" :sm="3">
                 <div class="layout-logo-left">
-                    <img src="../images/logo_sm.png" style="float:left;"/>
-                    <span style="font-size:2.5em;float:left;margin-left:10px;font-weight:bold;">yaya.ai</span>
+                    <img src="../images/logo.png" style="float:left;"/>
                 </div>
-                                
             </Col>
             <Col span="1">
                 <Button type="text" @click="handleMenuDisplayStatus">
@@ -79,7 +77,7 @@
                         <router-view class="layout-content-main"></router-view>
                 </div>
                 <div class="layout-copy">
-                    © 2012-2018 YayaBot — 深圳爱用科技有限公司
+                    © 2012-2018 Voicebot — 深圳爱用科技有限公司
                 </div>
             </Col>
         </Row>

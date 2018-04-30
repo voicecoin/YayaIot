@@ -59,10 +59,11 @@
             getToken() {
 				var qs = require('qs');
 				
-                this.$ajax.post(`/token`, qs.stringify(this.formInline), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+                /*this.$ajax.post(`/token`, qs.stringify(this.formInline), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 					.then(response => {
                         this.$store.commit('authenticated', response.data.token)
-					});
+                    });*/
+                this.$store.commit('authenticated', 'FAKE TOKEN');
             }
         }
     }
