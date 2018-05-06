@@ -88,12 +88,12 @@ const store = new Vuex.Store({
     authenticated(state, token) {
         localStorage.setItem('token', token);
         router.push('/agent/agents');
-        /*HTTP.get('/v1/account')
+        HTTP.get('/account', { baseURL: config.authURL })
         .then(response => {
             state.user = response.data;
             localStorage.setItem('user', JSON.stringify(response.data));
             router.push('/agent/agents');
-        });*/
+        });
     }
   }
 })

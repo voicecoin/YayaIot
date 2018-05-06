@@ -39,7 +39,7 @@
         let text = vm.content;
         vm.content = '';
 
-        vm.$ajax.get('/v1/Conversation?clientAccessToken=' + token + '&conversationId=' + conversationId + '&text=' + text)
+        vm.$ajax.get('/v1/Conversation/' + conversationId + '/' + token + '?text=' + text)
             .then(response => {
 
                 vm.messages.push({

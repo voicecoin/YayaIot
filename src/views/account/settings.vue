@@ -52,7 +52,7 @@
 		},
 		created() {
 			let agentId = this.$route.query.agentId;
-			this.$ajax.get(`/v1/Account`)
+			this.$ajax.get(`/Account`, { baseURL: this.$config.authURL })
 				.then(response => {
 					this.user = response.data;
 				});
