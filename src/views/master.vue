@@ -3,7 +3,7 @@
         <Row class="layout-header" type="flex" align="middle">
             <Col :xs="0" :sm="3">
                 <div class="layout-logo-left">
-                    <img src="../images/logo.png" style="float:left;"/>
+                    <img src="../images/logo_sm.png" style="height:100%;"/>
                 </div>
             </Col>
             <Col span="1">
@@ -161,7 +161,8 @@
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
     }
     .layout-logo-left{
-        padding-left: 2em;
+        text-align: center;
+        height: 3rem;
     }
     .layout-ceiling-main{
         text-align: center;

@@ -8,7 +8,7 @@
             <ul>
                 <li v-for="entry in entries" style="text-align: left;margin-bottom:10px;">
                     <Input v-model="entry.value" @on-enter="handleAddEntry" style="width:150px;margin-right: 10px;"></Input>
-                    <Tag v-for="synonym in entry.synonyms" :key="synonym" :name="synonym" type="dot" closable @on-close="handleRemoveSynonym(entry, synonym)">{{synonym}}</Tag>
+                    <Tag v-for="synonym in entry.synonyms" :key="synonym.id" :name="synonym.synonym" type="dot" closable @on-close="handleRemoveSynonym(entry, synonym)">{{synonym.synonym}}</Tag>
                     <Input v-model="entry.synonym" icon="ios-plus-empty" placeholder="按回车添加同义词" @on-enter="handleAddSynonym(entry, entry.synonym)" style="width:150px;margin-right: 10px;"></Input>
                     <Button type="text" icon="trash-b" style="float:right;" @click="showDeleteConfirm = true">删除</Button>
                     <Modal v-model="showDeleteConfirm" width="360">
@@ -147,7 +147,7 @@
                     });
             },
             handleRemoveSynonym(entry, synonym){
-                this.$ajax.delete('/v1/EntrySynonmy/' + entry.id + '/' + synonym)
+                this.$ajax.delete('/v1/EntrySynonmy/' + entry.id + '/' + synonym.synonym)
                     .then(response => {
                         const index = entry.synonyms.indexOf(synonym);
                         entry.synonyms.splice(index, 1);

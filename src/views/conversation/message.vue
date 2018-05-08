@@ -27,13 +27,7 @@ export default {
 	data () {
 		return {
 			session: {
-				messages:[
-					{
-                        self: false,
-                        date: new Date(),
-                        content: "请问有什么需要帮助的？"
-                    }
-				]
+				messages:[]
 			},
 		}
 	},

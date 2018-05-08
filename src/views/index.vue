@@ -9,7 +9,7 @@
 						<h1>
 							<img src="../images/logo-icon.png">
 						</h1>
-						<div class="title">Voiceweb 人工智能对话机器人制作平台</div>
+						<div class="title">Voiceweb 智能对话机器人开放平台</div>
 						<div class="slogan"><vue-typer text='嘿，你好！' :type-delay='500' :repeat='0'></vue-typer></div>
 						
 					</Col>

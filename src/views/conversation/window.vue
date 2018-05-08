@@ -9,23 +9,17 @@
 import text from './text.vue';
 import message from './message.vue';
 
-let defaultMessage = {
-                self: false,
-                date: new Date(),
-                content: "请问有什么需要帮助的？"
-            };
-
 export default {
 	data () {
 		return {
 			session: {
-				messages:[defaultMessage]
+				messages:[]
 			}
 		}
 	},
     methods: {
         reset(){
-            this.session.messages = [defaultMessage];
+            this.session.messages = [];
         },
 
         sendMessage(){

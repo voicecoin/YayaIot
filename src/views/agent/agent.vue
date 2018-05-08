@@ -59,6 +59,7 @@
 							<Button type="error" size="large" long :loading="modal_loading" @click="handleRemove">删除</Button>
 						</div>
 					</Modal>
+					<Button type="primary" @click="trainAgent(agent.id, agent.clientAccessToken)">训练</Button>
 					<Button type="primary" @click="updateAgent(agent.id)">保存</Button>
 				</Col>
 			</Row>
@@ -105,16 +106,22 @@
 					this.agent = response.data;
 				});
 
-			this.$ajax.get(`/v1/Skills/` + agentId)
+			/*this.$ajax.get(`/v1/Skills/` + agentId)
 				.then(response => {
 					this.allies = response.data;
-				});
+				});*/
 		},
 		methods:{
 			updateAgent(agentId){
 				this.$ajax.put('/v1/Agents/' + agentId, this.agent)
 					.then(response => {
 						this.$Message.info("保存成功");
+					});
+			},
+			trainAgent(agentId, clientAccessToken){
+				this.$ajax.get('/v1/Agents/' + agentId + '/train/' + clientAccessToken)
+					.then(response => {
+						this.$Message.info({content: "训练成功，模型文件：" + response.data, duration: 5});
 					});
 			},
 			handleRemove(){
