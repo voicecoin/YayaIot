@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
-    "iview": "^2.13.1",
+    "iview": "^2.14.3",
     "localStorage": "^1.0.3",
     "vue": "^2.5.16",
     "vue-avatar-editor": "^1.0.4",
